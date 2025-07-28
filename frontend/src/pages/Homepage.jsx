@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { servicesAPI, testimonialsAPI } from "../services/api";
 import { 
   Building2, 
   Home, 
@@ -16,26 +17,42 @@ import {
 } from "lucide-react";
 
 const Homepage = () => {
-  const services = [
-    {
-      icon: Building2,
-      title: "Büroreinigung",
-      description: "Professionelle Reinigung für Büros und Geschäftsräume",
-      color: "text-blue-600"
-    },
-    {
-      icon: Home,
-      title: "Wohnungsreinigung",
-      description: "Gründliche Reinigung für Ihr Zuhause",
-      color: "text-green-600"
-    },
-    {
-      icon: Store,
-      title: "Gewerbereinigung",
-      description: "Spezialisierte Reinigung für Gewerbeobjekte",
-      color: "text-purple-600"
-    }
-  ];
+  const [services, setServices] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load data from backend
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        
+        // Load services and testimonials from backend
+        const [servicesData, testimonialsData] = await Promise.all([
+          servicesAPI.getServices(true), // Only active services
+          testimonialsAPI.getTestimonials(true) // Only approved testimonials
+        ]);
+        
+        setServices(servicesData || []);
+        setTestimonials(testimonialsData || []);
+        
+      } catch (error) {
+        console.error("Error loading homepage data:", error);
+        // Keep empty arrays as fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Map service categories to icons and colors
+  const serviceIconMap = {
+    commercial: { icon: Building2, color: "text-blue-600" },
+    residential: { icon: Home, color: "text-green-600" },
+    industrial: { icon: Store, color: "text-purple-600" }
+  };
 
   const features = [
     {
@@ -60,26 +77,16 @@ const Homepage = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Maria Schmidt",
-      company: "Schmidt & Partner",
-      text: "Stinex reinigt unsere Büroräume seit 2 Jahren. Immer zuverlässig und gründlich!",
-      rating: 5
-    },
-    {
-      name: "Thomas Weber",
-      company: "Weber Immobilien",
-      text: "Hervorragender Service! Die Qualität stimmt und das Team ist sehr professionell.",
-      rating: 5
-    },
-    {
-      name: "Anna Müller",
-      company: "Privatkundin",
-      text: "Endlich eine Reinigungsfirma, die hält, was sie verspricht. Sehr empfehlenswert!",
-      rating: 5
-    }
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Lade Inhalte...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -127,16 +134,18 @@ const Homepage = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
+            {services.slice(0, 3).map((service, index) => {
+              const iconData = serviceIconMap[service.category] || { icon: Building2, color: "text-blue-600" };
+              const Icon = iconData.icon;
+              
               return (
                 <Card 
-                  key={index} 
+                  key={service.id || index} 
                   className="text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2"
                 >
                   <CardHeader>
                     <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                      <Icon className={`h-8 w-8 ${service.color}`} />
+                      <Icon className={`h-8 w-8 ${iconData.color}`} />
                     </div>
                     <CardTitle className="text-xl">{service.title}</CardTitle>
                   </CardHeader>
@@ -144,6 +153,9 @@ const Homepage = () => {
                     <CardDescription className="text-base">
                       {service.description}
                     </CardDescription>
+                    <p className="text-sm text-blue-600 font-semibold mt-2">
+                      {service.pricing}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -193,11 +205,11 @@ const Homepage = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+            {testimonials.slice(0, 3).map((testimonial, index) => (
+              <Card key={testimonial.id || index} className="hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="pt-6">
                   <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
+                    {[...Array(testimonial.rating || 5)].map((_, i) => (
                       <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                     ))}
                   </div>

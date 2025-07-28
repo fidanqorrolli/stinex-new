@@ -6,6 +6,7 @@ import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { useToast } from "../hooks/use-toast";
+import { contactAPI } from "../services/api";
 import { 
   Phone, 
   Mail, 
@@ -45,15 +46,18 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Mock submission - In real app, this would call the backend
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    try {
+      // Submit to real backend API
+      const response = await contactAPI.submitContact(formData);
+      
+      console.log("Contact form submitted successfully:", response);
+      
       toast({
         title: "Nachricht gesendet!",
-        description: "Vielen Dank für Ihre Anfrage. Wir melden uns binnen 24 Stunden bei Ihnen.",
+        description: response.message || "Vielen Dank für Ihre Anfrage. Wir melden uns binnen 24 Stunden bei Ihnen.",
       });
       
-      // Reset form
+      // Reset form after successful submission  
       setFormData({
         name: "",
         email: "",
@@ -61,8 +65,18 @@ const Contact = () => {
         service: "",
         message: ""
       });
+      
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      
+      toast({
+        title: "Fehler beim Senden",
+        description: error.message || "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const contactInfo = [
@@ -140,6 +154,7 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="Ihr vollständiger Name"
                         className="mt-1"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
@@ -153,6 +168,7 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="ihre.email@beispiel.de"
                         className="mt-1"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -168,11 +184,16 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="+49 123 456 789"
                         className="mt-1"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
                       <Label htmlFor="service">Gewünschte Leistung</Label>
-                      <Select onValueChange={handleSelectChange} value={formData.service}>
+                      <Select 
+                        onValueChange={handleSelectChange} 
+                        value={formData.service}
+                        disabled={isSubmitting}
+                      >
                         <SelectTrigger className="mt-1">
                           <SelectValue placeholder="Leistung auswählen" />
                         </SelectTrigger>
@@ -198,6 +219,7 @@ const Contact = () => {
                       placeholder="Beschreiben Sie Ihre Anfrage oder teilen Sie uns Details zu Ihrem Reinigungsbedarf mit..."
                       rows={6}
                       className="mt-1"
+                      disabled={isSubmitting}
                     />
                   </div>
 
