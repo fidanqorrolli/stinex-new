@@ -95,7 +95,7 @@ const Homepage = () => {
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Sauberkeit, die
-            <span className="text-blue-600 block">überzeugt</span>
+            <span className="text-emerald-600 block">überzeugt</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
             Professionelle Reinigungsdienstleistungen für Büros, Wohnungen und Gewerbeobjekte. 
