@@ -231,7 +231,7 @@ const Homepage = () => {
           <h2 className="text-4xl font-bold text-white mb-4">
             Bereit für professionelle Sauberkeit?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-emerald-100 mb-8">
             Kontaktieren Sie uns für ein unverbindliches Angebot. 
             Wir beraten Sie gerne und finden die perfekte Lösung für Ihre Bedürfnisse.
           </p>
