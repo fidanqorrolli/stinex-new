@@ -147,7 +147,7 @@ const About = () => {
               return (
                 <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
                   <CardContent className="pt-8 pb-6">
-                    <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Icon className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
