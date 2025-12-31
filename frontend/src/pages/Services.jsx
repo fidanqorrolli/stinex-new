@@ -124,7 +124,7 @@ const Services = () => {
                       </div>
                     </div>
                     <p className="text-gray-600 mb-6">{service.description}</p>
-                    <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                    <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
                       <Link to="/contact">
                         Angebot anfordern
                         <ArrowRight className="ml-2 h-4 w-4" />
