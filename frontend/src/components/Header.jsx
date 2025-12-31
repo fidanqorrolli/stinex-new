@@ -22,10 +22,10 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-blue-600 p-2 rounded-lg">
+            <div className="bg-emerald-600 p-2 rounded-lg">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-blue-900">Stinex</span>
+            <span className="text-2xl font-bold text-emerald-900">Stinex</span>
           </Link>
 
           {/* Desktop Navigation */}
