@@ -47,11 +47,11 @@ const Header = () => {
 
           {/* Call to Action */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center text-blue-600">
+            <div className="flex items-center text-emerald-600">
               <Phone className="h-4 w-4 mr-2" />
               <span className="font-semibold">+49 123 456 789</span>
             </div>
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
+            <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
               <Link to="/contact">Kostenlos anfragen</Link>
             </Button>
           </div>
