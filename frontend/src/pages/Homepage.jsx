@@ -240,7 +240,7 @@ const Homepage = () => {
               asChild 
               size="lg" 
               variant="secondary"
-              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3 h-auto"
+              className="bg-white text-emerald-600 hover:bg-gray-100 text-lg px-8 py-3 h-auto"
             >
               <Link to="/contact">Jetzt Kontakt aufnehmen</Link>
             </Button>
