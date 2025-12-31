@@ -277,8 +277,11 @@ frontend:
     file: "/app/frontend/src/components/FloatingContactButton.jsx"
     stuck_count: 1
     priority: "low"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
+        - working: false
+          agent: "testing"
+          comment: "CONFIRMED: Floating contact button not visible during testing. Component may not be properly imported/rendered or may be using blue styling that blends with current design."
         - working: true
           agent: "main"
           comment: "Created floating contact widget with multiple contact options"
