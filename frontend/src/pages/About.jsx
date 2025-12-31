@@ -122,7 +122,7 @@ const About = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-8 pt-6 border-t border-blue-200">
+            <div className="mt-8 pt-6 border-t border-emerald-200">
               <h4 className="font-semibold text-gray-900 mb-4">Zertifizierungen:</h4>
               <div className="space-y-2">
                 {certifications.map((cert, index) => (
