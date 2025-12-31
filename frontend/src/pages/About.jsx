@@ -232,7 +232,7 @@ const About = () => {
               asChild 
               size="lg" 
               variant="secondary"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="bg-white text-emerald-600 hover:bg-gray-100"
             >
               <Link to="/contact">
                 Kontakt aufnehmen
