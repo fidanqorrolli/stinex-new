@@ -77,8 +77,8 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-lg font-medium transition-colors duration-200 hover:text-blue-600 ${
-                    isActive(item.href) ? "text-blue-600" : "text-gray-700"
+                  className={`text-lg font-medium transition-colors duration-200 hover:text-emerald-600 ${
+                    isActive(item.href) ? "text-emerald-600" : "text-gray-700"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
