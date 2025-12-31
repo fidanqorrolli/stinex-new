@@ -105,7 +105,7 @@ const Homepage = () => {
             <Button 
               asChild 
               size="lg" 
-              className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3 h-auto"
+              className="bg-emerald-600 hover:bg-emerald-700 text-lg px-8 py-3 h-auto"
             >
               <Link to="/contact">
                 Kostenlos anfragen
