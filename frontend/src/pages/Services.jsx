@@ -1,239 +1,202 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { 
-  Building2, 
-  Home, 
-  Store, 
-  CheckCircle, 
-  ArrowRight,
-  Calendar,
-  Sparkles,
-  Users,
-  Clock
-} from "lucide-react";
+import { CheckCircle, ArrowRight, Clock, Shield, Award } from "lucide-react";
 
 const Services = () => {
-  const mainServices = [
+  const services = [
     {
-      icon: Building2,
-      title: "Büroreinigung",
-      description: "Professionelle Reinigung für Büros, Praxen und Verwaltungsgebäude",
+      title: "Residential Cleaning",
+      description: "Complete home cleaning solutions for your living space.",
       features: [
-        "Tägliche oder wöchentliche Reinigung",
-        "Schreibtische und Arbeitsflächen",
-        "Sanitäranlagen und Küchen",
-        "Staubsaugen und Wischen",
-        "Fensterreinigung",
-        "Müllentsorgung"
+        "Weekly, bi-weekly, or monthly service",
+        "Deep cleaning and maintenance",
+        "Kitchen and bathroom sanitization",
+        "Floor care and vacuuming",
+        "Window and surface cleaning",
+        "Customizable cleaning plans"
       ],
-      pricing: "Ab 15€ pro Stunde",
-      color: "bg-blue-50 border-blue-200",
-      iconColor: "text-blue-600"
+      price: "Starting at $120"
     },
     {
-      icon: Home,
-      title: "Wohnungsreinigung",
-      description: "Gründliche Reinigung für Ihr Zuhause - von der Grundreinigung bis zur regelmäßigen Pflege",
+      title: "Commercial Cleaning",
+      description: "Professional office and business cleaning services.",
       features: [
-        "Grundreinigung bei Umzug",
-        "Regelmäßige Haushaltsreinigung",
-        "Bad- und Küchenreinigung",
-        "Fenster innen und außen",
-        "Treppenhaus reinigen",
-        "Balkon und Terrasse"
+        "Daily, weekly, or custom schedules",
+        "Office and workspace cleaning",
+        "Restroom and break room sanitation",
+        "Floor maintenance and carpet care",
+        "Window and glass cleaning",
+        "After-hours service available"
       ],
-      pricing: "Ab 25€ pro Stunde",
-      color: "bg-green-50 border-green-200",
-      iconColor: "text-green-600"
+      price: "Custom pricing"
     },
     {
-      icon: Store,
-      title: "Gewerbereinigung",
-      description: "Spezialisierte Reinigung für Geschäfte, Restaurants und Industrieobjekte",
+      title: "Deep Cleaning",
+      description: "Intensive cleaning for move-ins, move-outs, and special occasions.",
       features: [
-        "Ladenlokale und Geschäfte",
-        "Restaurants und Cafés",
-        "Lagerhallen und Werkstätten",
-        "Hotelreinigung",
-        "Praxen und Kliniken",
-        "Industriereinigung"
+        "Comprehensive top-to-bottom cleaning",
+        "Inside appliance cleaning",
+        "Detailed bathroom and kitchen work",
+        "Baseboard and window sill cleaning",
+        "Light fixture and fan cleaning",
+        "Cabinet and drawer interior cleaning"
       ],
-      pricing: "Individuell kalkuliert",
-      color: "bg-purple-50 border-purple-200",
-      iconColor: "text-purple-600"
+      price: "Starting at $250"
     }
   ];
 
-  const additionalServices = [
+  const process = [
     {
-      icon: Sparkles,
-      title: "Grundreinigung",
-      description: "Intensive Ersteinigung oder nach Renovierungen"
+      step: "01",
+      title: "Get Quote",
+      description: "Contact us for a free, no-obligation quote tailored to your needs."
     },
     {
-      icon: Calendar,
-      title: "Einmalige Reinigung",
-      description: "Flexible Einzeltermine nach Bedarf"
+      step: "02",
+      title: "Schedule",
+      description: "Choose a convenient time that works with your schedule."
     },
     {
-      icon: Users,
-      title: "Großobjekte",
-      description: "Reinigung großer Gebäudekomplexe"
-    },
+      step: "03",
+      title: "Clean",
+      description: "Our professional team delivers exceptional cleaning results."
+    }
+  ];
+
+  const benefits = [
     {
       icon: Clock,
-      title: "24/7 Service",
-      description: "Notfallreinigung rund um die Uhr"
+      title: "Time Saving",
+      description: "Focus on what matters most while we handle the cleaning."
+    },
+    {
+      icon: Shield,
+      title: "Fully Insured",
+      description: "Complete peace of mind with full insurance coverage."
+    },
+    {
+      icon: Award,
+      title: "Quality Guarantee",
+      description: "100% satisfaction guarantee on all our cleaning services."
     }
   ];
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Unsere Reinigungsleistungen
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Von der kleinen Wohnung bis zum großen Bürogebäude - wir bieten professionelle 
-            Reinigungsdienstleistungen für jeden Bedarf. Zuverlässig, gründlich und zu fairen Preisen.
+    <div className="bg-white">
+      {/* Header */}
+      <section className="section">
+        <div className="container text-center">
+          <h1 className="mb-8">Our Services</h1>
+          <p className="text-large text-muted max-w-3xl mx-auto">
+            Professional cleaning services designed to meet your specific needs. 
+            From regular maintenance to deep cleaning, we've got you covered.
           </p>
         </div>
+      </section>
 
-        {/* Main Services */}
-        <div className="space-y-12 mb-16">
-          {mainServices.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <Card key={index} className={`${service.color} hover:shadow-xl transition-all duration-300`}>
-                <div className="grid lg:grid-cols-3 gap-8 p-8">
-                  <div className="lg:col-span-1">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mr-4">
-                        <Icon className={`h-6 w-6 ${service.iconColor}`} />
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-900">{service.title}</h3>
-                        <Badge variant="secondary" className="mt-1">
-                          {service.pricing}
-                        </Badge>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 mb-6">{service.description}</p>
-                    <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
+      {/* Services */}
+      <section className="section-sm">
+        <div className="container">
+          <div className="space-y-12">
+            {services.map((service, index) => (
+              <div key={index} className="minimal-card">
+                <div className="grid lg:grid-cols-3 gap-8 items-start">
+                  <div>
+                    <h3 className="mb-4">{service.title}</h3>
+                    <p className="text-muted mb-6">{service.description}</p>
+                    <div className="text-2xl font-bold mb-6">{service.price}</div>
+                    <Button asChild className="btn-primary">
                       <Link to="/contact">
-                        Angebot anfordern
+                        Get Quote
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                   </div>
                   <div className="lg:col-span-2">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Leistungsumfang:</h4>
+                    <h4 className="font-medium mb-4">What's Included:</h4>
                     <div className="grid md:grid-cols-2 gap-3">
                       {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center">
-                          <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-gray-700">{feature}</span>
+                        <div key={featureIndex} className="flex items-start">
+                          <CheckCircle className="h-5 w-5 mr-3 mt-0.5 flex-shrink-0" />
+                          <span className="text-muted">{feature}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-              </Card>
-            );
-          })}
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* Additional Services */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
-            Weitere Dienstleistungen
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {additionalServices.map((service, index) => {
-              const Icon = service.icon;
+      {/* Process */}
+      <section className="section-sm bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="mb-4">How It Works</h2>
+            <p className="text-large text-muted max-w-2xl mx-auto">
+              Getting started with our cleaning services is simple and straightforward.
+            </p>
+          </div>
+          <div className="grid grid-3">
+            {process.map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                  {item.step}
+                </div>
+                <h3 className="mb-4">{item.title}</h3>
+                <p className="text-muted">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="section-sm">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="mb-4">Why Choose Our Services</h2>
+            <p className="text-large text-muted max-w-2xl mx-auto">
+              We're committed to providing exceptional cleaning services that exceed your expectations.
+            </p>
+          </div>
+          <div className="grid grid-3">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
               return (
-                <div key={index} className="text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-6 w-6 text-white" />
+                <div key={index} className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Icon className="h-8 w-8" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-gray-600 text-sm">{service.description}</p>
+                  <h3 className="mb-4">{benefit.title}</h3>
+                  <p className="text-muted">{benefit.description}</p>
                 </div>
               );
             })}
           </div>
         </div>
+      </section>
 
-        {/* Process */}
-        <div className="bg-gray-50 rounded-xl p-8 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
-            So einfach funktioniert's
+      {/* CTA */}
+      <section className="section-sm bg-black text-white">
+        <div className="container text-center">
+          <h2 className="text-white mb-4">
+            Ready to Book Your Service?
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">1</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Kontakt aufnehmen</h3>
-              <p className="text-gray-600">
-                Rufen Sie uns an oder senden Sie eine Anfrage über unser Kontaktformular
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Kostenloses Angebot</h3>
-              <p className="text-gray-600">
-                Wir besichtigen Ihre Räumlichkeiten und erstellen ein maßgeschneidertes Angebot
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Professionelle Reinigung</h3>
-              <p className="text-gray-600">
-                Unser erfahrenes Team führt die Reinigung zuverlässig und gründlich durch
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center bg-emerald-600 rounded-xl p-12">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Bereit für professionelle Sauberkeit?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Kontaktieren Sie uns für ein unverbindliches Angebot. 
-            Wir finden die perfekte Reinigungslösung für Ihre Bedürfnisse.
+          <p className="text-large text-gray-300 mb-8 max-w-2xl mx-auto">
+            Contact us today for a free quote and let us take care of your cleaning needs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              asChild 
-              size="lg" 
-              variant="secondary"
-              className="bg-white text-blue-600 hover:bg-gray-100"
-            >
-              <Link to="/contact">Kostenlos anfragen</Link>
-            </Button>
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-600"
-            >
-              <Link to="/about">Über uns erfahren</Link>
-            </Button>
-          </div>
+          <Button asChild className="bg-white text-black hover:bg-gray-100">
+            <Link to="/contact">
+              Get Free Quote
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

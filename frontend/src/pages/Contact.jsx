@@ -1,20 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { useToast } from "../hooks/use-toast";
 import { contactAPI } from "../services/api";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock,
-  Send,
-  CheckCircle
-} from "lucide-react";
+import { Send, Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -47,17 +39,13 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Submit to real backend API
       const response = await contactAPI.submitContact(formData);
       
-      console.log("Contact form submitted successfully:", response);
-      
       toast({
-        title: "Nachricht gesendet!",
-        description: response.message || "Vielen Dank für Ihre Anfrage. Wir melden uns binnen 24 Stunden bei Ihnen.",
+        title: "✅ Message sent successfully!",
+        description: response.message || "Thank you for your inquiry. We'll get back to you within 24 hours.",
       });
       
-      // Reset form after successful submission  
       setFormData({
         name: "",
         email: "",
@@ -70,8 +58,8 @@ const Contact = () => {
       console.error("Error submitting contact form:", error);
       
       toast({
-        title: "Fehler beim Senden",
-        description: error.message || "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.",
+        title: "❌ Error sending message",
+        description: error.message || "There was a problem sending your message. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -82,69 +70,76 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: Phone,
-      title: "Telefon",
-      content: "+49 123 456 789",
-      description: "Mo-Fr: 8:00 - 18:00 Uhr"
+      title: "Phone",
+      content: "+1 (555) 123-4567",
+      description: "Mon-Fri: 8:00 AM - 6:00 PM"
     },
     {
       icon: Mail,
-      title: "E-Mail",
-      content: "info@stinex.de",
-      description: "Wir antworten binnen 24h"
+      title: "Email",
+      content: "hello@stinex.com",
+      description: "We respond within 4 hours"
     },
     {
       icon: MapPin,
-      title: "Adresse",
-      content: "Musterstraße 123, 20095 Hamburg",
-      description: "Unser Hauptsitz"
+      title: "Address",
+      content: "123 Main Street, City, State 12345",
+      description: "Our main office"
     },
     {
       icon: Clock,
-      title: "Öffnungszeiten",
-      content: "Mo-Fr: 8:00 - 18:00",
-      description: "Sa: 9:00 - 16:00"
+      title: "Business Hours",
+      content: "Mon-Fri: 8:00 AM - 6:00 PM",
+      description: "Sat: 9:00 AM - 4:00 PM"
     }
   ];
 
   const services = [
-    "Büroreinigung",
-    "Wohnungsreinigung", 
-    "Gewerbereinigung",
-    "Grundreinigung",
-    "Einmalige Reinigung",
-    "Fensterreinigung",
-    "Sonstiges"
+    "Residential Cleaning",
+    "Commercial Cleaning", 
+    "Deep Cleaning",
+    "Move-in/Move-out Cleaning",
+    "Post-Construction Cleanup",
+    "Window Cleaning",
+    "Other"
+  ];
+
+  const serviceAreas = [
+    "Downtown Area",
+    "North District",
+    "South District", 
+    "East Side",
+    "West Side",
+    "Suburban Areas",
+    "Surrounding Counties"
   ];
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Kontakt
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Haben Sie Fragen oder möchten Sie ein unverbindliches Angebot? 
-            Wir freuen uns auf Ihre Nachricht und melden uns schnellstmöglich bei Ihnen.
+    <div className="bg-white">
+      {/* Header */}
+      <section className="section">
+        <div className="container text-center">
+          <h1 className="mb-8">Get In Touch</h1>
+          <p className="text-large text-muted max-w-3xl mx-auto">
+            Have questions or ready to schedule your cleaning service? 
+            We'd love to hear from you and provide a free, no-obligation quote.
           </p>
         </div>
+      </section>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="text-2xl">Nachricht senden</CardTitle>
-                <CardDescription>
-                  Füllen Sie das Formular aus und wir melden uns innerhalb von 24 Stunden bei Ihnen.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
+      <section className="section-sm">
+        <div className="container">
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Contact Form */}
+            <div className="lg:col-span-2">
+              <div className="minimal-card">
+                <h2 className="mb-8">Send us a message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="name">Name *</Label>
+                      <Label htmlFor="name" className="text-sm font-medium mb-2 block">
+                        Full Name *
+                      </Label>
                       <Input
                         id="name"
                         name="name"
@@ -152,13 +147,15 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="Ihr vollständiger Name"
-                        className="mt-1"
+                        placeholder="Your full name"
+                        className="form-input"
                         disabled={isSubmitting}
                       />
                     </div>
                     <div>
-                      <Label htmlFor="email">E-Mail *</Label>
+                      <Label htmlFor="email" className="text-sm font-medium mb-2 block">
+                        Email Address *
+                      </Label>
                       <Input
                         id="email"
                         name="email"
@@ -166,36 +163,40 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="ihre.email@beispiel.de"
-                        className="mt-1"
+                        placeholder="your@email.com"
+                        className="form-input"
                         disabled={isSubmitting}
                       />
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="phone">Telefon</Label>
+                      <Label htmlFor="phone" className="text-sm font-medium mb-2 block">
+                        Phone Number
+                      </Label>
                       <Input
                         id="phone"
                         name="phone"
                         type="tel"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="+49 123 456 789"
-                        className="mt-1"
+                        placeholder="(555) 123-4567"
+                        className="form-input"
                         disabled={isSubmitting}
                       />
                     </div>
                     <div>
-                      <Label htmlFor="service">Gewünschte Leistung</Label>
+                      <Label htmlFor="service" className="text-sm font-medium mb-2 block">
+                        Service Needed
+                      </Label>
                       <Select 
                         onValueChange={handleSelectChange} 
                         value={formData.service}
                         disabled={isSubmitting}
                       >
-                        <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Leistung auswählen" />
+                        <SelectTrigger className="form-input">
+                          <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
                           {services.map((service, index) => (
@@ -209,137 +210,106 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="message">Nachricht *</Label>
+                    <Label htmlFor="message" className="text-sm font-medium mb-2 block">
+                      Message *
+                    </Label>
                     <Textarea
                       id="message"
                       name="message"
                       required
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Beschreiben Sie Ihre Anfrage oder teilen Sie uns Details zu Ihrem Reinigungsbedarf mit..."
-                      rows={6}
-                      className="mt-1"
+                      placeholder="Tell us about your cleaning needs, property size, frequency, or any special requirements..."
+                      className="form-textarea"
                       disabled={isSubmitting}
                     />
                   </div>
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-lg py-3 h-auto"
+                    className="btn-primary w-full"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Wird gesendet...
+                        Sending...
                       </>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
-                        Nachricht senden
+                        Send Message
                       </>
                     )}
                   </Button>
 
-                  <p className="text-sm text-gray-500 text-center">
-                    * Pflichtfelder. Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben.
+                  <p className="text-small text-muted text-center">
+                    * Required fields. We respect your privacy and will never share your information.
                   </p>
                 </form>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </div>
 
-          {/* Contact Information */}
-          <div className="space-y-6">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Kontaktinformationen</CardTitle>
-                <CardDescription>
-                  So erreichen Sie uns direkt
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  return (
-                    <div key={index} className="flex items-start space-x-3">
-                      <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon className="h-5 w-5 text-white" />
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <div className="minimal-card">
+                <h3 className="mb-6">Contact Information</h3>
+                <div className="space-y-6">
+                  {contactInfo.map((info, index) => {
+                    const Icon = info.icon;
+                    return (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-sm">{info.title}</h4>
+                          <p className="font-medium">{info.content}</p>
+                          <p className="text-small text-muted">{info.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{info.title}</h3>
-                        <p className="text-emerald-600 font-medium">{info.content}</p>
-                        <p className="text-sm text-gray-500">{info.description}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
+                    );
+                  })}
+                </div>
+              </div>
 
-            {/* Service Areas */}
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Servicegebiete</CardTitle>
-                <CardDescription>
-                  In diesen Bereichen sind wir für Sie da
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {[
-                    "Hamburg und Umgebung",
-                    "Norderstedt, Ahrensburg",
-                    "Pinneberg, Elmshorn", 
-                    "Lüneburg, Stade",
-                    "Auf Anfrage: weitere Gebiete"
-                  ].map((area, index) => (
+              {/* Service Areas */}
+              <div className="minimal-card">
+                <h3 className="mb-4">Service Areas</h3>
+                <p className="text-small text-muted mb-4">
+                  We proudly serve these areas:
+                </p>
+                <div className="space-y-2">
+                  {serviceAreas.map((area, index) => (
                     <div key={index} className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                      <span className="text-gray-600">{area}</span>
+                      <CheckCircle className="h-4 w-4 mr-2 flex-shrink-0" />
+                      <span className="text-small">{area}</span>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Emergency Contact */}
-            <Card className="shadow-lg border-orange-200 bg-orange-50">
-              <CardHeader>
-                <CardTitle className="text-orange-900">Notfall-Service</CardTitle>
-                <CardDescription className="text-orange-700">
-                  24/7 erreichbar für dringende Fälle
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center">
-                  <Phone className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                  <p className="font-bold text-xl text-orange-900">+49 123 456 000</p>
-                  <p className="text-sm text-orange-700 mt-2">
-                    Für Wasserschäden, Reinigungsnotfälle und dringende Termine
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Map Placeholder */}
-        <div className="mt-16">
-          <Card className="shadow-lg">
-            <CardContent className="p-0">
-              <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <MapPin className="h-12 w-12 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Standort Hamburg</h3>
-                  <p>Musterstraße 123, 20095 Hamburg</p>
-                  <p className="text-sm mt-2">Interaktive Karte wird hier angezeigt</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      {/* CTA */}
+      <section className="section-sm bg-black text-white">
+        <div className="container text-center">
+          <h2 className="text-white mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-large text-gray-300 mb-8 max-w-2xl mx-auto">
+            Call us now for immediate assistance or to schedule your free consultation.
+          </p>
+          <Button asChild className="bg-white text-black hover:bg-gray-100">
+            <a href="tel:+15551234567">
+              <Phone className="mr-2 h-4 w-4" />
+              Call Now: (555) 123-4567
+            </a>
+          </Button>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
