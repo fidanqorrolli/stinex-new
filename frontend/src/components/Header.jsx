@@ -1,31 +1,29 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Menu, X, Sparkles, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   const navigation = [
-    { name: "Startseite", href: "/" },
-    { name: "Leistungen", href: "/services" },
-    { name: "Über uns", href: "/about" },
-    { name: "Kontakt", href: "/contact" },
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/services" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="container mx-auto">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-emerald-600 p-2 rounded-lg">
-              <Sparkles className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold text-emerald-900">Stinex</span>
+          <Link to="/" className="flex items-center group">
+            <div className="w-8 h-8 bg-black rounded-full mr-3 group-hover:scale-110 transition-transform duration-200"></div>
+            <span className="text-2xl font-bold tracking-tight">Stinex</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -34,25 +32,22 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-lg font-medium transition-colors duration-200 hover:text-emerald-600 ${
-                  isActive(item.href)
-                    ? "text-emerald-600 border-b-2 border-emerald-600 pb-1"
-                    : "text-gray-700"
+                className={`text-sm font-medium transition-colors duration-200 hover:text-black relative ${
+                  isActive(item.href) ? "text-black" : "text-gray-600"
                 }`}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black rounded-full"></div>
+                )}
               </Link>
             ))}
           </nav>
 
-          {/* Call to Action */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center text-emerald-600">
-              <Phone className="h-4 w-4 mr-2" />
-              <span className="font-semibold">+49 123 456 789</span>
-            </div>
-            <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
-              <Link to="/contact">Kostenlos anfragen</Link>
+          {/* CTA Button */}
+          <div className="hidden md:block">
+            <Button asChild className="btn-primary text-sm">
+              <Link to="/contact">Get Quote</Link>
             </Button>
           </div>
 
@@ -62,36 +57,32 @@ const Header = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4">
+          <div className="md:hidden border-t border-gray-100 py-6">
             <div className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-lg font-medium transition-colors duration-200 hover:text-emerald-600 ${
-                    isActive(item.href) ? "text-emerald-600" : "text-gray-700"
+                  className={`text-sm font-medium transition-colors duration-200 hover:text-black ${
+                    isActive(item.href) ? "text-black" : "text-gray-600"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex items-center text-emerald-600 pt-2">
-                <Phone className="h-4 w-4 mr-2" />
-                <span className="font-semibold">+49 123 456 789</span>
-              </div>
-              <Button asChild className="bg-emerald-600 hover:bg-emerald-700 w-full">
+              <Button asChild className="btn-primary text-sm mt-4">
                 <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                  Kostenlos anfragen
+                  Get Quote
                 </Link>
               </Button>
             </div>
